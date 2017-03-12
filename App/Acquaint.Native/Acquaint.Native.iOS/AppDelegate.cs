@@ -7,8 +7,10 @@ using Acquaint.Util;
 using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using Foundation;
-using HockeyApp.iOS;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
+using Microsoft.Azure.Mobile.Crashes;
 using UIKit;
 
 namespace Acquaint.Native.iOS
@@ -30,9 +32,8 @@ namespace Acquaint.Native.iOS
 		// Method invoked after the application has launched to configure the main window and view controller.
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			var manager = BITHockeyManager.SharedHockeyManager;
-			manager.Configure(Settings.HockeyAppId);
-			manager.StartManager();
+			MobileCenter.Start("1bf549a2-8287-4407-b592-ac23f39bc3bb",
+				   typeof(Analytics), typeof(Crashes));
 
 			RegisterDependencies();
 
